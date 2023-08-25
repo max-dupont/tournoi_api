@@ -37,7 +37,7 @@ Game.getGameById = function (GameId, result) {
 };
 Game.getAllGame = function (result) {
   sql.query(
-    "Select game.id, tower, number, p1.id as first_player, concat(p1.firstname, ' ', p1.lastname) as first_player_name, p2.id as second_player, concat(p2.firstname, ' ', p2.lastname) as second_player_name, winner from games join player p1 on p1.id=game.first_player join player p2 on p2.id=game.second_player",
+    "Select games.id, tower, number, p1.id as first_player, concat(p1.firstname, ' ', p1.lastname) as first_player_name, p2.id as second_player, concat(p2.firstname, ' ', p2.lastname) as second_player_name, winner from games join players p1 on p1.id=games.first_player join players p2 on p2.id=games.second_player",
     function (err, res) {
       if (err) {
         console.log("error: ", err);
