@@ -11,17 +11,10 @@ exports.list_all_games = function (req, res, next) {
 
 exports.create_a_game = function (req, res, next) {
   var new_game = new Game(req.body);
-  //handles null error
-  if (!new_game.first_player && !new_game.second_player) {
-    res
-      .status(400)
-      .send({ error: true, message: "Please provide game/status" });
-  } else {
-    Game.createGame(new_game, function (err, game) {
-      if (err) res.send(err);
-      res.json(game);
-    });
-  }
+  Game.createGame(new_game, function (err, game) {
+    if (err) res.send(err);
+    res.json(game);
+  });
 };
 
 exports.read_a_game = function (req, res, next) {

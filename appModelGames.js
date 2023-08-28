@@ -12,7 +12,8 @@ var Game = function (Game) {
 };
 
 Game.createGame = function (newGame, result) {
-  if (newGame.first_player != newGame.second_player) {
+  if ((newGame.first_player && newGame.second_player && newGame.first_player != newGame.second_player)
+  || !newGame.first_player || !newGame.second_player) {
     sql.query("INSERT INTO games set ?", newGame, function (err, res) {
       if (err) {
         console.log("error: ", err);
