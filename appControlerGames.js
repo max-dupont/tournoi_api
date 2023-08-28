@@ -32,7 +32,7 @@ exports.read_a_game = function (req, res, next) {
 };
 
 exports.update_a_game = function (req, res, next) {
-  Game.updateById(req.params.gameId, new Game(req.body), function (err, game) {
+  Game.updateById(new Game(req.body), function (err, game) {
     if (err) res.send(err);
     res.json(game);
   });

@@ -13,6 +13,6 @@ module.exports = function (app) {
   app
     .route("/games")
     .get(gamesControler.list_all_games)
-    .post(gamesControler.create_a_game);
-
+    .post(gamesControler.create_a_game)
+    .put(gamesControler.update_a_game);
   };

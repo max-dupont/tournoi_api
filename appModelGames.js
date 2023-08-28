@@ -3,6 +3,7 @@ var sql = require("./db.js");
 
 //Game object constructor
 var Game = function (Game) {
+  this.id = Game.id;
   this.tower = Game.tower;
   this.number = Game.number;
   this.first_player = Game.first_player;
@@ -49,16 +50,17 @@ Game.getAllGame = function (result) {
     }
   );
 };
-Game.updateById = function (id, Game, result) {
+Game.updateById = function (Game, result) {
   sql.query(
-    "UPDATE Game SET tower = ?, number = ?, first_player = ?, second_player = ?, winner = ? WHERE id = ?",
-    [Game.tower, Game.number, Game.first_player, Game.second_player, Game.winner, id],
+    "UPDATE Games SET tower = ?, number = ?, first_player = ?, second_player = ?, winner = ? WHERE id = ?",
+    [Game.tower, Game.number, Game.first_player, Game.second_player, Game.winner, Game.id],
     function (err, res) {
       if (err) {
         console.log("error: ", err);
         result(null, err);
       } else {
-        result(null, res);
+        console.log('updated game: ',{...Game});
+        result(null, Game.id);
       }
     }
   );
