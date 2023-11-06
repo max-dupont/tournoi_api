@@ -24,7 +24,7 @@ let Games = class {
     }
     static addOne(game) {
         return new Promise((next) => {
-            db.query('INSERT INTO games(tower, number) VALUES(?, ?)', [game.tower, game.number])
+            db.query('INSERT INTO games(tower, number, first_player, second_player) VALUES(?, ?, ?, ?)', [game.tower, game.number, game.first_player, game.second_player])
                 .then(result => next(result))
                 .catch(err => next(err))
         })
