@@ -1,6 +1,7 @@
 const config = require('./config.json')
 const mysql = require('promise-mysql')
 const bodyParser = require('body-parser')
+const cors = require("cors");
 const express = require('express')
 const app = express()
 
@@ -9,6 +10,14 @@ mysql.createConnection(config.db)
     .then((db) => {
         console.log(`Connected to ${config.db.database} !`)
         app.use(bodyParser.json())
+        // Add headers
+        app.use((req, res, next) => {
+            res.set("Access-Control-Allow-Origin", "*");
+            res.set("Access-Control-Allow-Headers", "Content-Type");
+            res.set("Access-Control-Allow-Methods", "GET,POST,OPTIONS,DELETE,PUT");
+            next();
+        });
+        app.use(cors());
         
         // router creation
         let expressRouter = express.Router()
