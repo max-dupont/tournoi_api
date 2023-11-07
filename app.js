@@ -36,8 +36,8 @@ mysql.createConnection(config.db)
             .get(async (req, res) => res.json(await Games.getAll()))
             .post(async (req, res) => res.json(await Games.addOne(req.body)))
             .delete(async (req, res) => res.json(await Games.deleteAll()))
-        expressRouter.route('/games/:id')
-            .put(async (req, res) => res.json(await Games.updateOne(req.body, req.params.id)))
+        expressRouter.route('/games')
+            .put(async (req, res) => res.json(await Games.updateOne(req.body)))
         
 
         // config routes

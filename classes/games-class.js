@@ -13,10 +13,11 @@ let Games = class {
                     SELECT g.id as id, tower, number,
                     first_player, CONCAT(p1.firstname,' ', p1.lastname) as first_player_name,
                     second_player, CONCAT(p2.firstname,' ', p2.lastname) as second_player_name,
-                    winner 
+                    winner, CONCAT(w.firstname,' ', w.lastname) as winner_name
                     FROM games g 
-                    JOIN players p1 ON g.first_player=p1.id
-                    JOIN players p2 ON g.second_player=p2.id
+                    LEFT JOIN players p1 ON g.first_player=p1.id
+                    LEFT JOIN players p2 ON g.second_player=p2.id
+                    LEFT JOIN players w ON g.winner=w.id
                 `)
                 .then(result => next(result))
                 .catch(err => next(err))
@@ -29,9 +30,22 @@ let Games = class {
                 .catch(err => next(err))
         })
     }
-    static updateOne(game, id) {
+    static updateOne(game) {
+        let req = 'UPDATE games SET '
+        let body = []
+        if (game.first_player) {
+            req += 'first_player = ?, '
+            body.push(game.first_player)
+        }
+        if (game.second_player) {
+            req += 'second_player = ?, '
+            body.push(game.second_player)
+        }
+        req += 'winner = ? WHERE tower = ? AND number = ?'
+        body.push(game.winner, game.tower, game.number)
+
         return new Promise((next) => {
-            db.query('UPDATE games SET first_player = ?, second_player = ?, winner = ? WHERE id = ?', [game.first_player, game.second_player, game.winner, id])
+            db.query(req, body)
                 .then(result => next(game))
                 .catch(err => next(err))
         })
