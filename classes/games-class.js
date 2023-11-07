@@ -32,7 +32,7 @@ let Games = class {
     static updateOne(game, id) {
         return new Promise((next) => {
             db.query('UPDATE games SET first_player = ?, second_player = ?, winner = ? WHERE id = ?', [game.first_player, game.second_player, game.winner, id])
-                .then(result => next(result))
+                .then(result => next(game))
                 .catch(err => next(err))
         })
     }
