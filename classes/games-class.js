@@ -6,18 +6,18 @@ module.exports = (_db, _config) => {
     return Games
 }
 
-/**
- * TO DO :
- * getAll OK
- * addOne OK
- * addAll ?
- * updateOne OK
- * deleteAll OK
- */
 let Games = class {
     static getAll() {
         return new Promise((next) => {
-            db.query('SELECT * FROM games')
+            db.query(`
+                    SELECT g.id as id, tower, number,
+                    first_player, CONCAT(p1.firstname,' ', p1.lastname) as first_player_name,
+                    second_player, CONCAT(p2.firstname,' ', p2.lastname) as second_player_name,
+                    winner 
+                    FROM games g 
+                    JOIN players p1 ON g.first_player=p1.id
+                    JOIN players p2 ON g.second_player=p2.id
+                `)
                 .then(result => next(result))
                 .catch(err => next(err))
         })

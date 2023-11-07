@@ -6,13 +6,6 @@ module.exports = (_db, _config) => {
     return Players
 }
 
-/**
- * TO DO :
- * getAll OK
- * addOne OK
- * addAll ?
- * deleteAll OK
- */
 
 let Players = class {
     static getAll() {
