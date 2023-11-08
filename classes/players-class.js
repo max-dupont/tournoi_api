@@ -22,6 +22,13 @@ let Players = class {
                 .catch(err => next(err))
         })
     }
+    static updateOne(player) {
+        return new Promise((next) => {
+            db.query('UPDATE players SET final_place = ? WHERE id = ?', [player.final_place, player.id])
+                .then(result => next(player))
+                .catch(err => next(err))
+        })
+    }
     static deleteAll() {
         return new Promise((next) => {
             db.query('DELETE FROM players')

@@ -29,15 +29,15 @@ mysql.createConnection(config.db)
         expressRouter.route('/players')
             .get(async (req, res) => res.json(await Players.getAll()))
             .post(async (req, res) => res.json(await Players.addOne(req.body)))
+            .put(async (req, res) => res.json(await Players.updateOne(req.body)))
             .delete(async (req, res) => res.json(await Players.deleteAll()))
 
         // games route
         expressRouter.route('/games')
             .get(async (req, res) => res.json(await Games.getAll()))
             .post(async (req, res) => res.json(await Games.addOne(req.body)))
-            .delete(async (req, res) => res.json(await Games.deleteAll()))
-        expressRouter.route('/games')
             .put(async (req, res) => res.json(await Games.updateOne(req.body)))
+            .delete(async (req, res) => res.json(await Games.deleteAll()))
         
 
         // config routes
