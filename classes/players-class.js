@@ -10,7 +10,7 @@ module.exports = (_db, _config) => {
 let Players = class {
     static getAll() {
         return new Promise((next) => {
-            db.query('SELECT * FROM players')
+            db.query('SELECT * FROM players ORDER BY final_place')
                 .then(result => next(result))
                 .catch(err => next(err))
         })
