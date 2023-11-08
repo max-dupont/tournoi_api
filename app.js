@@ -24,6 +24,7 @@ mysql.createConnection(config.db)
         // class requirements
         const Players = require('./classes/players-class')(db, config)
         const Games = require('./classes/games-class')(db, config)
+        const Rooms = require('./classes/rooms-class')(db, config)
 
         // players route
         expressRouter.route('/players')
@@ -39,6 +40,10 @@ mysql.createConnection(config.db)
             .put(async (req, res) => res.json(await Games.updateOne(req.body)))
             .delete(async (req, res) => res.json(await Games.deleteAll()))
         
+        // rooms route
+        expressRouter.route('/rooms')
+            .get(async (req, res) => res.json(await Rooms.getAll()))
+            .post(async (req, res) => res.json(await Rooms.addOne(req.body)))
 
         // config routes
         app.use('', expressRouter)
