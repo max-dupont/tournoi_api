@@ -21,4 +21,11 @@ let Rooms = class {
                 .catch(err => next(err))
         })
     }
+    static deleteAll() {
+        return new Promise((next) => {
+            db.query('DELETE FROM rooms')
+                .then(result => next(result))
+                .catch(err => next(err))
+        })
+    }
 }

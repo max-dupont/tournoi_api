@@ -44,6 +44,7 @@ mysql.createConnection(config.db)
         expressRouter.route('/rooms')
             .get(async (req, res) => res.json(await Rooms.getAll()))
             .post(async (req, res) => res.json(await Rooms.addOne(req.body)))
+            .delete(async (req, res) => res.json(await Rooms.deleteAll()))
 
         // config routes
         app.use('', expressRouter)
