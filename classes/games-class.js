@@ -14,7 +14,8 @@ let Games = class {
                     first_player, CONCAT(p1.firstname,' ', p1.lastname) as first_player_name,
                     second_player, CONCAT(p2.firstname,' ', p2.lastname) as second_player_name,
                     winner, CONCAT(w.firstname,' ', w.lastname) as winner_name,
-                    r.number as room_number
+                    r.number as room_number,
+                    r.id as room
                     FROM games g 
                     LEFT JOIN players p1 ON g.first_player=p1.id
                     LEFT JOIN players p2 ON g.second_player=p2.id
